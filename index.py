@@ -11,7 +11,7 @@ rms_waiting_queue = deque()
 timer = time.time()
 alg = 'EDF'
 
-def display_status(processors):
+def display(processors):
     resource_status = ' '.join([f"{res}:{count}" for res, count in resource_availability.items()])
     edf_queue = ', '.join([t.name for t in list(edf_waiting_queue.queue)])
     rms_queue = ', '.join([t.name for t in list(rms_waiting_queue)])
@@ -232,11 +232,11 @@ scheduler.start()
 
 try:
     while scheduler.is_alive():
-        display_status(processors)
+        display(processors)
         time.sleep(1)
 except KeyboardInterrupt:
     stop_event.set()
 
 scheduler.join()
 
-display_status(processors)
+display(processors)
